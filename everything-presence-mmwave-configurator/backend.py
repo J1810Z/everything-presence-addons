@@ -15,6 +15,7 @@ app = Flask(__name__)
 SUPERVISOR_TOKEN = os.getenv('SUPERVISOR_TOKEN')
 HA_URL = os.getenv('HA_URL')
 HA_TOKEN = os.getenv('HA_TOKEN')
+HA_TOKEN_FILE = os.getenv('HA_TOKEN_FILE')
 
 if SUPERVISOR_TOKEN:
     logging.error('Running as a Home Assistant Add-on.')
@@ -25,6 +26,19 @@ if SUPERVISOR_TOKEN:
     }
 elif HA_URL and HA_TOKEN:
     logging.error('Running as a standalone docker container.')
+    HOME_ASSISTANT_API = HA_URL.rstrip('/') + '/api'
+    headers = {
+        'Authorization': f'Bearer {HA_TOKEN}',
+        'Content-Type': 'application/json',
+    }
+elif HA_URL and HA_TOKEN_FILE:
+    logging.error('Running as a standalone docker container.')
+    try:
+        with open(HA_TOKEN_FILE, 'r') as file:
+            HA_TOKEN = file.read().strip()
+    except FileNotFoundError:
+        logging.error(f'File {HA_TOKEN_FILE} not found.')
+        sys.exit(1)
     HOME_ASSISTANT_API = HA_URL.rstrip('/') + '/api'
     headers = {
         'Authorization': f'Bearer {HA_TOKEN}',
