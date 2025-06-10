@@ -1,3 +1,9 @@
+### 1.1.4
+- Adds support for a second exclusion zone with firmware 1.3.0 of Everything Presence Lite [@EverythingSmartHome](https://github.com/EverythingSmartHome/everything-presence-addons/pull/68)
+
+### 1.1.3
+- Added the ability to display devices by their Friendly name to make device selection easier  [OliverHi](https://github.com/OliverHi)
+
 ### 1.1.2
 
 - Added Zone Exports UI button & JavaScript to save current zones in map to a JSON file to allow for re-import or backups [@ilikestohack](https://github.com/ilikestohack)
